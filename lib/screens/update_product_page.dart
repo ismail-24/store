@@ -6,17 +6,17 @@ import 'package:store/widgets/custom_button.dart';
 import 'package:store/widgets/custom_text_field.dart';
 
 class UpdateProductPage extends StatefulWidget {
-  UpdateProductPage({super.key});
-  static String id = 'UpdateProductPage';
+  static String id = 'update product';
 
   @override
   State<UpdateProductPage> createState() => _UpdateProductPageState();
 }
 
 class _UpdateProductPageState extends State<UpdateProductPage> {
-  String? productName, desc, image, price;
-  bool isLoading = false;
+  String? productName, desc, image;
 
+  String? price;
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     ProductModel product =
@@ -39,12 +39,13 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
           padding: const EdgeInsets.all(16),
           child: SingleChildScrollView(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 150,
+                  height: 100,
                 ),
                 CustomTextField(
-                  onChange: (data) {
+                  onChanged: (data) {
                     productName = data;
                   },
                   hintText: 'Product Name',
@@ -53,41 +54,41 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                   height: 10,
                 ),
                 CustomTextField(
-                  onChange: (data) {
+                  onChanged: (data) {
                     desc = data;
                   },
-                  hintText: 'Description',
+                  hintText: 'description',
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 CustomTextField(
-                  inputType: TextInputType.number,
-                  onChange: (data) {
+                  onChanged: (data) {
                     price = data;
                   },
-                  hintText: 'Price',
+                  hintText: 'price',
+                  inputType: TextInputType.number,
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 CustomTextField(
-                  onChange: (data) {
+                  onChanged: (data) {
                     image = data;
                   },
-                  hintText: 'Image',
+                  hintText: 'image',
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 70,
                 ),
                 CustomButton(
                   text: 'Update',
                   onTap: () async {
                     isLoading = true;
                     setState(() {});
-                    await updateProduct(product);
-
                     try {
+                      await updateProduct(product);
+
                       print('success');
                     } catch (e) {
                       print(e.toString());
@@ -95,7 +96,7 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
                     isLoading = false;
                     setState(() {});
                   },
-                )
+                ),
               ],
             ),
           ),
@@ -106,12 +107,11 @@ class _UpdateProductPageState extends State<UpdateProductPage> {
 
   Future<void> updateProduct(ProductModel product) async {
     await UpdateProductService().updateProduct(
-      id: product.id,
-      title: productName == null ? product.title : productName!,
-      price: price == null ? product.price.toString() : price!,
-      desc: desc == null ? product.description : desc!,
-      image: image == null ? product.image : image!,
-      category: product.category,
-    );
+        id: product.id,
+        title: productName == null ? product.title : productName!,
+        price: price == null ? product.price.toString() : price!,
+        desc: desc == null ? product.description : desc!,
+        image: image == null ? product.image : image!,
+        category: product.category);
   }
 }

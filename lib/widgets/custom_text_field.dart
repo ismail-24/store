@@ -6,7 +6,8 @@ class CustomTextField extends StatelessWidget {
       super.key,
       this.hintText,
       this.obscureText = false,
-      this.inputType});
+      this.inputType,
+      required Null Function(dynamic data) onChanged});
   Function(String)? onChange;
   String? hintText;
   TextInputType? inputType;
