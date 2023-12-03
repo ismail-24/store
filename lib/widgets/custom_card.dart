@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:store/models/product_model.dart';
 import 'package:store/screens/update_product_page.dart';
+import 'package:store/widgets/custom_icon_button.dart';
 
 class CustomCard extends StatelessWidget {
   CustomCard({super.key, required this.product});
@@ -18,10 +19,11 @@ class CustomCard extends StatelessWidget {
             decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
-                    blurRadius: 40,
-                    color: Colors.grey.withOpacity(0.2),
-                    spreadRadius: 0,
-                    offset: Offset(10, 10))
+                  blurRadius: 40,
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 0,
+                  offset: const Offset(10, 10),
+                )
               ],
             ),
             child: Card(
@@ -35,12 +37,12 @@ class CustomCard extends StatelessWidget {
                   children: [
                     Text(
                       product.title.substring(0, 15),
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 16,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 3,
                     ),
                     Row(
@@ -48,12 +50,10 @@ class CustomCard extends StatelessWidget {
                       children: [
                         Text(
                           '\$${product.price.toString()}',
-                          style: TextStyle(color: Colors.black, fontSize: 16),
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 16),
                         ),
-                        Icon(
-                          Icons.favorite,
-                          color: Colors.red,
-                        ),
+                        const CustomIconButton(),
                       ],
                     ),
                   ],
@@ -63,7 +63,7 @@ class CustomCard extends StatelessWidget {
           ),
           Positioned(
             right: 32,
-            top: -60,
+            top: -70,
             child: Image.network(
               product.image,
               height: 100,
